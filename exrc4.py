@@ -99,7 +99,7 @@ if __name__ == "__main__":
     }
     
     # Ініціалізація ресурсів гравця із випадковими значеннями
-    player_resources = get_random_resources(0, 1000)
+    player_resources = get_random_resources(unit_hierarchy, 0, 1000)
 
     # Виклик функції для імітації гри
     space_engineer(game_actions, player_resources)

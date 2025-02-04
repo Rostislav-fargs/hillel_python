@@ -1,28 +1,32 @@
+"""Завдання #3"""
+
 import random
 
 
 class GameEventException(Exception):
+    """Game event info"""
     def __init__(self, event_type: str, details: dict):
         super().__init__(f"Подія: {event_type}")
         self.event_type = event_type
         self.details = details
-    
+
     def get_details(self):
         """Return game events details"""
         key, value = next(iter(self.details.items()))
         return {"action": key, "result": value}
-    
+
 
 def space_engineer():
+    """Simulate game"""
     print("Ви інженер на космічному кораблі.")
     try:
         event = random.choice(list(game_events.keys()))
         print(f"Аварія: {event}!\nВаріанти дій для усунення:")
 
-        action_list = [action for action in game_events[event]]
+        action_list = list(game_events[event].keys())
         for index, action in enumerate(action_list, start=1):
             print(f"{index} - {action.capitalize()}")
-        
+
         action_number = int(input("Виконати дію(номер): "))-1
 
         if action_number in range(len(action_list)):
@@ -33,8 +37,6 @@ def space_engineer():
         event_details = e.get_details()
         print(f"{e}.\nВиконані дії: {event_details['action'].capitalize()}.")
         print(f"Результат: {event_details['result'].capitalize()}")
-    except Exception as e:
-        print(e)
 
 
 game_events = {

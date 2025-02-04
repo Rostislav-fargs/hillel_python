@@ -1,3 +1,5 @@
+"""Завдання #2"""
+
 def read_file_lines(file_name: str) -> list:
     """
     Reads the lines from a text file.
@@ -13,30 +15,30 @@ def read_file_lines(file_name: str) -> list:
         raise TypeError("The argument 'file_name' must be string")
     if not '.txt' in file_name:
         raise ValueError("The argument 'file_name' must end with '.txt'")
-    
+
     try:
         with open(file_name, 'r', encoding='utf-8') as file:
             file_lines = file.readlines()
-            
+
             if len(file_lines) == 1:
                 numbers_list = [
-                    float(num.strip(',')) if '.' in num else int(num.strip(',')) 
+                    float(num.strip(',')) if '.' in num else int(num.strip(','))
                     for num in file_lines[0].split()
                 ]
             else:
                 numbers_list = [
-                    float(line.strip(',')) if '.' in line else int(line.strip(',')) 
+                    float(line.strip(',')) if '.' in line else int(line.strip(','))
                     for line in file_lines
                 ]
 
     except FileNotFoundError as e:
-        print(e.__class__.__name__, e)
+        print("FileNotFoundError", e)
     except ValueError as e:
-        print(e.__class__.__name__, e)
-    except Exception as e:
-        print(e.__class__.__name__, e)
+        print("ValueError", e)
     else:
         return numbers_list
+
+    return None
 
 def list_average(numbers_list: list) -> float:
     """Returns average of given numbers list."""
@@ -47,16 +49,15 @@ def list_average(numbers_list: list) -> float:
 def get_average_from_file(file_name: str) -> float:
     """Returns average from a text file with given file_name."""
 
-    file_numbers = read_file_lines(file_name)
+    numbers = read_file_lines(file_name)
 
-    if not file_numbers:
+    if not numbers:
         print("File is empty.")
-        return
-    
-    return list_average(file_numbers)
+        return None
+
+    return list_average(numbers)
 
 
 if __name__ == "__main__":
-    file_name = 'numbers.txt'
-    print(get_average_from_file(file_name))
-   
+    NUMBERS_FILE = "numbers.txt"
+    print(get_average_from_file(NUMBERS_FILE))

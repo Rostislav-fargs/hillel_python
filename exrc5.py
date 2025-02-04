@@ -1,3 +1,5 @@
+"""Завдання #5"""
+
 import pprint
 
 
@@ -52,25 +54,30 @@ class BankTransactions:
 
         Args:
             amount (float): The amount to be transacted (either deposited or withdrawn).
-            transaction_type (str): The type of transaction (e.g., "withdraw_cash", "deposit_funds").
-            deposit_funds (bool): A flag to indicate whether the transaction is a deposit (True) or a withdrawal (False).
+            transaction_type (str): The type of transaction 
+                                    ("withdraw_cash", "deposit_funds", etc.).
+            deposit_funds (bool): A flag to indicate whether the transaction is a 
+                                    deposit (True) or a withdrawal (False).
 
         Returns:
-            dict: A dictionary containing the transaction type, status, current balance, and operation amount.
+            dict: A dictionary containing:
+                    transaction type : str,
+                    status : str, 
+                    current balance : float,
+                    operation amount : float.
         """
+        success_transaction = None
 
         try:
-            success_transaction = None
             if not deposit_funds and self.current_balance < amount:
                 raise InsufficientFundsException(
-                    required_amount=amount, 
-                    current_balance=self.current_balance, 
-                    currency=self.currency, 
+                    required_amount=amount,
+                    current_balance=self.current_balance,
+                    currency=self.currency,
                     transaction_type="withdraw_cash"
                 )
-            else:
-                self.current_balance += amount if deposit_funds else -amount
-                success_transaction = True
+            self.current_balance += amount if deposit_funds else -amount
+            success_transaction = True
 
         except InsufficientFundsException as e:
             print(e)
@@ -82,7 +89,7 @@ class BankTransactions:
                 "current_balance" : self.current_balance,
                 "operation_amount" : amount
             }
-            return response
+        return response
 
     def withdraw_cash(self, amount) -> dict:
         """
@@ -92,7 +99,8 @@ class BankTransactions:
             amount (float): The amount to be withdrawn.
 
         Returns:
-            dict: A dictionary with the result of the transaction, including status and updated balance.
+            dict: A dictionary with the result of the transaction,
+                  including status and updated balance.
         """
 
         return self._make_transaction(amount, "withdraw_cash")
@@ -105,7 +113,8 @@ class BankTransactions:
             amount (float): The amount to be deposited.
 
         Returns:
-            dict: A dictionary with the result of the transaction, including status and updated balance.
+            dict: A dictionary with the result of the transaction,
+                  including status and updated balance.
         """
 
         return self._make_transaction(amount, "deposit_funds", True)

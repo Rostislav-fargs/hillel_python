@@ -14,7 +14,7 @@ class InsufficientFundsException(Exception):
 
     def __init__(self, required_amount, current_balance, currency, transaction_type):
         super().__init__(
-            f"Недостатньо коштів для транкзакції '{required_amount}'."
+            f"Недостатньо коштів для транкзакції '{transaction_type}'."
             f"Баланс: {current_balance} {currency}."
             f"Необіхдно: {required_amount} {currency}."
         )

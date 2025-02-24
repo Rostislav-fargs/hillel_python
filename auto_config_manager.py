@@ -58,6 +58,9 @@ class JSONConfigManager:
         Returns:
             Any: Значення за ключем або fallback, якщо ключ відсутній.
         """
+        if not isinstance(key, str):
+            raise TypeError("'key' must be 'str'")
+
         keys = key.split('.')
         result = self.config
         for k in keys:
@@ -78,6 +81,9 @@ class JSONConfigManager:
         Raises:
             ValueError: Якщо key є порожнім рядком.
         """
+        if not isinstance(key, str):
+            raise TypeError("'key' must be 'str'")
+
         keys = key.split('.')
         config = self.config
         for k in keys[:-1]:
@@ -96,5 +102,3 @@ if __name__ == "__main__":
         print(config_manager.get('region'))
 
         print(config_manager.get('user'))
-
-# TODO перевірка типів у геттері і сеттері

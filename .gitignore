@@ -4,6 +4,7 @@ venv/
 *.json
 *.xml
 *.txt
+*.html
 
 !requirements.txt
 !products.xml
